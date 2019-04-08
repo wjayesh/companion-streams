@@ -107,7 +107,7 @@ void initState(){
         children: [
           DrawerHeader(
             margin:EdgeInsets.all(10.0) ,
-            child:  Image.asset("assets/drawer.jpg",width: 10,),
+            child:  Image.asset("assets/drawer.jpg",width: 100,height: 100,),
           ),
         ListTile(
         title: Text('Get Professional Help',
@@ -120,8 +120,8 @@ void initState(){
         ListTile(
         title: Text('Clear All Accounts',
           style: TextStyle(fontWeight: FontWeight.bold,fontStyle: FontStyle.normal),),
-        onTap: () {
-        DBProvider.db.deleteAll();
+        onTap: () async {
+        await DBProvider.db.deleteAll();
         
         },
         ),

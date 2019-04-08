@@ -11,7 +11,7 @@ LoginState createState()=>LoginState();
 }
 class LoginState extends State<Login>{
   static Client pehla=Client(firstName: "CHOOSE AN EXISTING USER");
-  List<Client> clients=[pehla];
+  List<Client> clients=[pehla]; String name;
 
   @override
   void initState(){
@@ -23,18 +23,19 @@ class LoginState extends State<Login>{
     setState(() { 
     });
   }
-
+  final controller=TextEditingController();
 
 
   @override
   Widget build(BuildContext context){
-    final controller=TextEditingController();
+    
     return Material(
       child:Column(
       children:<Widget>[ 
         Image.asset("assets/drawer.jpg"),
         Padding(
         child:TextField(
+          onEditingComplete: (){name=controller.text;},
           controller: controller ,
           decoration: InputDecoration(hintText: "Enter Name"),
         ),
