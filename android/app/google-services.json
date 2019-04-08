@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "30786535746",
+    "firebase_url": "https://companion-2019.firebaseio.com",
+    "project_id": "companion-2019",
+    "storage_bucket": "companion-2019.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:30786535746:android:c9f738d7b422dfcf",
+        "android_client_info": {
+          "package_name": "com.example.companion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "30786535746-560qckj9ecv7pt5lk2p0edl9dni1si23.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.companion",
+            "certificate_hash": "daa91a67ba9b33daa6fe0d9e93a86aea6a89e727"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyDjkRKSjYAgFiEWhEOl-5XvWQN7Yw-W0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "30786535746-sm1tq2pr8droard54v7o73gu39c0m89k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
