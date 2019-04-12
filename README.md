@@ -1,7 +1,6 @@
 # companion
 
 A new Flutter project.
-A new Flutter project.
 
 # Medium article
 Check out the article I wrote for companion and companion beta
