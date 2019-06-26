@@ -85,6 +85,7 @@ class Question3State extends State<Question3>{
                 Client newClient = Client.fromMap(client.toMap());
                 newClient.q3old = oldValue;
                 newClient.q3 = valueSlider;
+                newClient.notDone3 = true;
                 update(newClient);
               }
             ,

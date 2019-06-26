@@ -34,8 +34,7 @@ class Question1State extends State<Question1>{
 
   void update(Client newClient) async{
     await DBProvider.db.updateClient(newClient);
-    setState(() { 
-    });
+    getClient();
   }
 
   @override
@@ -88,6 +87,7 @@ class Question1State extends State<Question1>{
                 Client newClient = Client.fromMap(client.toMap());
                 newClient.q1old = oldValue;
                 newClient.q1 = valueSlider;
+                newClient.notDone1 = true;
                 update(newClient);
               }
             ,

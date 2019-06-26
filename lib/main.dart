@@ -121,6 +121,7 @@ void initState(){
         title: Text('Clear All Accounts',
           style: TextStyle(fontWeight: FontWeight.bold,fontStyle: FontStyle.normal),),
         onTap: () async {
+        Navigator.of(context).pushNamed("/");
         await DBProvider.db.deleteAll();
         
         },

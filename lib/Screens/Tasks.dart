@@ -52,8 +52,9 @@ void initState(){
 
   void update(Client newClient) async{
     await DBProvider.db.updateClient(newClient);
-    setState(() { 
-    });
+    getClient();
+    // setState(() { 
+    // });
   }
   
 
@@ -153,6 +154,9 @@ void initState(){
                 FlatButton(
                   child: const Text('Yes!'),
                   onPressed: () { 
+                    Client newClient = Client.fromMap(client.toMap());
+                    newClient.answered = true;
+                    update(newClient);
                     Navigator.of(context).push(
                       MaterialPageRoute(builder: (context)=>Question1(id:id))
                     );
