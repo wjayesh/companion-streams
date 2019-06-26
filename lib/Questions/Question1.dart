@@ -12,29 +12,35 @@ final int id;
 @override
 Question1State createState()=> Question1State(id);
 }
-//Client client;
+Client client;
 class Question1State extends State<Question1>{
   String question="How many people did you meet today?";
   double valueSlider=1,oldValue=0;
   Question1State(this.id);
   final int id;
 
-  // void getClient()async{
-  //   client= await DBProvider.db.getClient(id);
-  //   setState(() { 
-  //   });
-  // }
+  void getClient()async{
+    client= await DBProvider.db.getClient(id);
+    setState(() { 
+    });
+  }
 
-//   @override 
-//   void initState(){
-//   getClient();
-//   super.initState();
+  @override 
+  void initState(){
+  getClient();
+  super.initState();
   
-// }
+  }
+
+  void update(Client newClient) async{
+    await DBProvider.db.updateClient(newClient);
+    setState(() { 
+    });
+  }
 
   @override
   Widget build(BuildContext context){
-    Map<String,double> values=Map.from({"x":0.0});
+    //Map<String,double> values=Map.from({"x":0.0});
     return Material(
       type:MaterialType.transparency,
       child:Villain(
@@ -78,12 +84,15 @@ class Question1State extends State<Question1>{
                 setState(() {
                  oldValue=valueSlider;
                  valueSlider=newValue; 
-                 
                 });
+                Client newClient = Client.fromMap(client.toMap());
+                newClient.q1old = oldValue;
+                newClient.q1 = valueSlider;
+                update(newClient);
               }
             ,
-            start: Image.asset("2 people.jpg"),
-            end: Image.asset("5 people.jpg"),
+            // start: Image.asset("2 people.jpg"),
+            // end: Image.asset("5 people.jpg"),
             min: 1, max: 20,
           ),
           alignment: Alignment.center,
@@ -94,9 +103,8 @@ class Question1State extends State<Question1>{
           child:Align(child:FlatButton(
               child: Text("N E X T",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
               onPressed:(){ 
-                values.addAll({"q1":valueSlider,"q1old":oldValue});
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder:(context)=>Question2(values:values,id: id,) )
+                  MaterialPageRoute(builder:(context)=>Question2(id: id,) )
                 );},
             ),
             alignment: Alignment.bottomCenter,

@@ -14,7 +14,7 @@ class Client {
   int id,hour=0;
   String firstName;
   
-  bool show1,show2,notDone1,notDone2,notDone3,value,answered;
+  bool show1 = true,show2 = true,notDone1 = true,notDone2 = true,notDone3 = true,value,answered;
   double q1=0.0,q2=0.0,q3=0.0,q1old=0.0,q2old=0.0,q3old=0.0,progress1=0.0,progress2=0.0;
   
 

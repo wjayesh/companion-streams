@@ -32,7 +32,7 @@ void initState(){
 }
 
   bool isDepressed(){
-    if(client.q1==null) return true;
+    if(client.q1==null) return false;
     if(client.q1<3)
     return true;
     return false;

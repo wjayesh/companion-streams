@@ -1,3 +1,5 @@
+import 'package:companion/ClientModel.dart';
+import 'package:companion/Database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fluid_slider/flutter_fluid_slider.dart';
 import 'package:flutter_villains/villain.dart';
@@ -13,11 +15,30 @@ Question3State createState()=> Question3State(values,id);
 }
 
 class Question3State extends State<Question3>{
+  Client client;
   String question="How productive do you feel today?";
   double valueSlider=1,oldValue=0;
   Question3State(this.values,this.id);
   final Map<String,double> values;
   final int id;
+  void getClient()async{
+    client= await DBProvider.db.getClient(id);
+    setState(() { 
+    });
+  }
+
+  @override 
+  void initState(){
+  getClient();
+  super.initState();
+  
+  }
+
+  void update(Client newClient) async{
+    await DBProvider.db.updateClient(newClient);
+    setState(() { 
+    });
+  }
 
   @override
   Widget build(BuildContext context){
@@ -61,6 +82,10 @@ class Question3State extends State<Question3>{
                   oldValue=valueSlider;
                  valueSlider=newValue; 
                 });
+                Client newClient = Client.fromMap(client.toMap());
+                newClient.q3old = oldValue;
+                newClient.q3 = valueSlider;
+                update(newClient);
               }
             ,
             // start: Image.asset("less people"),
@@ -74,7 +99,7 @@ class Question3State extends State<Question3>{
           padding: EdgeInsets.all(50.0),
           child:Align(child:FlatButton(
               child: Text("N E X T",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
-              onPressed:(){ values.addAll({"q3":valueSlider,"q3old":oldValue});
+              onPressed:(){ 
                 Navigator.of(context).push(
                   MaterialPageRoute(builder:(context)=>MyHomePage(title:"Your Companion",id:id) ));},
             ),

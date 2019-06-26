@@ -20,10 +20,8 @@ class DashboardState extends State<Dashboard>{
 
   void getClient() async{
     client=await DBProvider.db.getClient(id);
-    Client newClient=Client(
-    id: client.id, q1: values["q1"],q2: values["q2"],q3: values["q3"],
-    q1old: values["q1old"],q2old: values["q2old"],q3old: values["q3"]);
-    update(newClient);
+    // Client newClient=Client(
+    // update(newClient);
     setState(() { 
     });
   }
@@ -52,6 +50,8 @@ class DashboardState extends State<Dashboard>{
   
   @override
   Widget build(BuildContext context){
+    var progress1 = client.progress1;
+    var progress2 = client.progress2;
     return Material(
       type: MaterialType.transparency,
       child:(client==null)? Container(child: Text("loading...",textAlign: TextAlign.center,),):
@@ -61,16 +61,16 @@ class DashboardState extends State<Dashboard>{
             (client.show1)? Container():
             
               
-                //(client.progress1>0)?
+                (client.progress1>0)?
               ListTile(
                 contentPadding: EdgeInsets.all(10.0),
                  title:Image.asset("assets/congrats.jpg", width: 200,height: 200,), 
-                subtitle: Text("Congratulations! You met 5 more people today", style:TextStyle(fontWeight: FontWeight.bold)),
-              ),
-              // :ListTile(
-              //   //leading: Image.asset("encourage"),
-              //   title: Text("You are yet to make progress"),
-              // ) ,
+                subtitle: Text("Congratulations! You met $progress1 more people today", style:TextStyle(fontWeight: FontWeight.bold)),
+              )
+              :ListTile(
+                //leading: Image.asset("encourage"),
+                title: Text("You are yet to make progress"),
+              ) ,
                
             
             ButtonTheme.bar( // makes buttons use the appropriate styles for cards
@@ -97,7 +97,7 @@ class DashboardState extends State<Dashboard>{
               ListTile(
                 contentPadding: EdgeInsets.all(10.0),
                  title:Image.asset("assets/congrats.jpg", width: 200,height: 200,), 
-                subtitle: Text("Treat yourself! You are happier today than a week ago", style:TextStyle(fontWeight: FontWeight.bold)),
+                subtitle: Text("Treat yourself! You are happier by $progress2 today than a week ago", style:TextStyle(fontWeight: FontWeight.bold)),
               ),
               ButtonTheme.bar( // makes buttons use the appropriate styles for cards
             child: ButtonBar(
