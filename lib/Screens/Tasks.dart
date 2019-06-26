@@ -69,7 +69,7 @@ void initState(){
         (!client.answered && !timeUp) ? askQuestion() : Container(),
         Flexible(child:ListView(
           children: <Widget>[
-            // (isDepressed() && client.notDone1)? 
+            (isDepressed() && client.notDone1)? 
             GestureDetector(
               onDoubleTap: () {
                 client.notDone1=false;
@@ -83,9 +83,9 @@ void initState(){
                         style: TextStyle(fontWeight:FontWeight.bold ),),
               )
 
-            ),
-            //:Container(),
-            //(isDepressed() && client.notDone2)? 
+            )
+            :Container(),
+            (isDepressed() && client.notDone2)? 
             GestureDetector(
               onDoubleTap: (){
               client.notDone2=false;
@@ -97,9 +97,9 @@ void initState(){
               subtitle: Text.rich(TextSpan(text:"Listen to your favourite tracks"),
                         style: TextStyle(fontWeight:FontWeight.bold ),),
               )
-              ),
-              //:Container(),
-              //(isDepressed() && client.notDone3)?
+              )
+              :Container(),
+              (isDepressed() && client.notDone3)?
               GestureDetector(
               onDoubleTap: (){
               client.notDone3=false;
@@ -115,8 +115,8 @@ void initState(){
                 ),
               )
 
-            ),
-            //:Container(),
+            )
+            :Container(),
             (isDepressed() && !client.notDone1)?
               ListTile(
                   title: Image.asset("assets/happy.jpg",width: 200,height: 200,),

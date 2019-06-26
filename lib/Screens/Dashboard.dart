@@ -20,10 +20,10 @@ class DashboardState extends State<Dashboard>{
 
   void getClient() async{
     client=await DBProvider.db.getClient(id);
-    // Client newClient=Client(
-    // id: client.id, q1: values["q1"],q2: values["q2"],q3: values["q3"],
-    // q1old: values["q1old"],q2old: values["q2old"],q3old: values["q3"]);
-    // update(newClient);
+    Client newClient=Client(
+    id: client.id, q1: values["q1"],q2: values["q2"],q3: values["q3"],
+    q1old: values["q1old"],q2old: values["q2old"],q3old: values["q3"]);
+    update(newClient);
     setState(() { 
     });
   }
