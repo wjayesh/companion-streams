@@ -154,9 +154,9 @@ void initState(){
                 FlatButton(
                   child: const Text('Yes!'),
                   onPressed: () { 
-                    Client newClient = Client.fromMap(client.toMap());
-                    newClient.answered = true;
-                    update(newClient);
+                    // Client newClient = Client.fromMap(client.toMap());
+                    // newClient.answered = true;
+                    // update(newClient);
                     Navigator.of(context).push(
                       MaterialPageRoute(builder: (context)=>Question1(id:id))
                     );

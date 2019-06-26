@@ -86,6 +86,9 @@ class Question3State extends State<Question3>{
                 newClient.q3old = oldValue;
                 newClient.q3 = valueSlider;
                 newClient.notDone3 = true;
+                newClient.notDone2 = true;
+                newClient.notDone1 = true;
+                newClient.answered = true;
                 update(newClient);
               }
             ,

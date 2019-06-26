@@ -34,24 +34,26 @@ class DashboardState extends State<Dashboard>{
   }
 
   void updateProgress()async{
-    if(client==null)return;
-    if(client.q1==null ||client.q1old==null) return;
-    double progress1=client.q1-client.q1old;
-    client.progress1=progress1;
+    if(client.firstName == null) return;
+    if(client.q1 == null || client.q1old == null) return;
+    double progress1 = client.q1-client.q1old;
+    client.progress1 = progress1;
     
-    await DBProvider.db.updateClient(client);
+    update(client);
     setState((){});
   }
 
   void update(Client newClient)async{
     await DBProvider.db.updateClient(newClient);
-    setState((){});
+    getClient();
   }
   
   @override
   Widget build(BuildContext context){
     var progress1 = client.progress1;
     var progress2 = client.progress2;
+    //while (progress1 == null || progress2 == null) { return Container(child: Text("Loading..."),);}
+    
     return Material(
       type: MaterialType.transparency,
       child:(client==null)? Container(child: Text("loading...",textAlign: TextAlign.center,),):
@@ -61,16 +63,16 @@ class DashboardState extends State<Dashboard>{
             (client.show1)? Container():
             
               
-                (client.progress1>0)?
+               // (client.progress1>0)?
               ListTile(
                 contentPadding: EdgeInsets.all(10.0),
                  title:Image.asset("assets/congrats.jpg", width: 200,height: 200,), 
-                subtitle: Text("Congratulations! You met $progress1 more people today", style:TextStyle(fontWeight: FontWeight.bold)),
-              )
-              :ListTile(
-                //leading: Image.asset("encourage"),
-                title: Text("You are yet to make progress"),
-              ) ,
+                subtitle: Text("Congratulations! You met more people today", style:TextStyle(fontWeight: FontWeight.bold)),
+              ),
+              // :ListTile(
+              //   //leading: Image.asset("encourage"),
+              //   title: Text("You are yet to make progress"),
+              // ) ,
                
             
             ButtonTheme.bar( // makes buttons use the appropriate styles for cards
@@ -97,7 +99,7 @@ class DashboardState extends State<Dashboard>{
               ListTile(
                 contentPadding: EdgeInsets.all(10.0),
                  title:Image.asset("assets/congrats.jpg", width: 200,height: 200,), 
-                subtitle: Text("Treat yourself! You are happier by $progress2 today than a week ago", style:TextStyle(fontWeight: FontWeight.bold)),
+                subtitle: Text("Treat yourself! You are happier today than a week ago", style:TextStyle(fontWeight: FontWeight.bold)),
               ),
               ButtonTheme.bar( // makes buttons use the appropriate styles for cards
             child: ButtonBar(

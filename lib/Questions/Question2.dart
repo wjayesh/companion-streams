@@ -36,8 +36,7 @@ class Question2State extends State<Question2>{
 
   void update(Client newClient) async{
     await DBProvider.db.updateClient(newClient);
-    setState(() { 
-    });
+    getClient();
   }
 
   @override
