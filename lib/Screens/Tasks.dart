@@ -83,7 +83,7 @@ void initState(){
           builder: (BuildContext context, AsyncSnapshot<Message> snapshot){
             return Flexible(child:ListView(
             children: <Widget>[
-            (snapshot.data.userId == client.id) && (isDepressed() && snapshot.data.value)? 
+            (isDepressed() && (snapshot.data.userId == client.id)?snapshot.data.value: false)? 
             FadeTransition(opacity: animation,
               
               child :
