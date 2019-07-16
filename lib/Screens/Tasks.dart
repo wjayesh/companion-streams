@@ -1,8 +1,12 @@
 import 'dart:core';
+import 'package:companion/BlocProvider.dart';
+import 'package:companion/Blocs/UserBloc.dart';
 import 'package:companion/Database.dart';
+import 'package:companion/Message.dart';
 import 'package:flutter/material.dart';
 import 'package:companion/ClientModel.dart';
 import 'package:companion/Questions/Question1.dart';
+import 'package:flutter_villains/villains/villains.dart';
 
 
 class Tasks extends StatefulWidget{
@@ -17,6 +21,8 @@ class TasksState extends State<Tasks>{
   TasksState(this.id);
   final int id;
   bool timeUp=false;
+  AnimationController controller;
+  Animation<double> animation;
 
   void getClient()async{
     client= await DBProvider.db.getClient(id);
@@ -26,6 +32,9 @@ class TasksState extends State<Tasks>{
 
 @override 
 void initState(){
+  controller = AnimationController(
+      duration: const Duration(milliseconds: 1000));
+  animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
   getClient();
   super.initState();
   updateTime();
@@ -60,6 +69,7 @@ void initState(){
 
   @override
   Widget build(BuildContext context){
+    final UserBloc bloc = BlocProvider.of<UserBloc>(context);
     return Material(
     
       
@@ -68,13 +78,21 @@ void initState(){
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         (!client.answered && !timeUp) ? askQuestion() : Container(),
-        Flexible(child:ListView(
-          children: <Widget>[
-            (isDepressed() && client.notDone1)? 
+        StreamBuilder<Message>(
+          stream: bloc.outNotDone1,
+          builder: (BuildContext context, AsyncSnapshot<Message> snapshot){
+            return Flexible(child:ListView(
+            children: <Widget>[
+            (snapshot.data.userId == client.id) && (isDepressed() && snapshot.data.value)? 
+            FadeTransition(opacity: animation,
+              
+              child :
             GestureDetector(
               onDoubleTap: () {
                 client.notDone1=false;
-                update(client);
+                //update(client);
+                bloc.sinkNotDone1.add(new Message(false, client.id));
+                controller.forward();
               }
                ,
               child:ListTile(
@@ -84,8 +102,13 @@ void initState(){
                         style: TextStyle(fontWeight:FontWeight.bold ),),
               )
 
-            )
-            :Container(),
+            ))
+            :Container()
+          ]
+          )
+          );
+          } ),
+        
             (isDepressed() && client.notDone2)? 
             GestureDetector(
               onDoubleTap: (){

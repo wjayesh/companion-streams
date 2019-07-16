@@ -32,7 +32,7 @@ class LoginState extends State<Login>{
     return Material(
       child:Column(
       children:<Widget>[ 
-        Image.asset("assets/drawer.jpg"),
+        Image.asset("assets/drawer.jpg",height: 300, ),
         Padding(
         child:TextField(
           onEditingComplete: (){name=controller.text;},
@@ -53,16 +53,22 @@ class LoginState extends State<Login>{
           Navigator.of(context).push(
             MaterialPageRoute(builder:(context)=>MyHomePage(title:"Your Companion",id:id)));}
         ),
+        Padding(
+          padding: EdgeInsets.all(15),
+          child: Text("CHOOSE  FROM  EXISTING  USERS", 
+                      style: TextStyle(fontWeight: FontWeight.w700 ),
+                      textAlign: TextAlign.left,)
+                      ),
         Flexible(child:ListView.builder(
           padding: EdgeInsets.all(10.0),
-         itemBuilder: (context,index)=> GestureDetector(child:Padding(
+          itemBuilder: (context,index)=> GestureDetector(child:Padding(
               child:Text(clients[index].firstName) ,
               padding: EdgeInsets.all(10.0),),
               onTap:(){ 
               Navigator.of(context).push(
               MaterialPageRoute(builder:(context)=>MyHomePage(title:"Your Companion",id:clients[index].id)));},
               ),
-         itemCount: clients.length,)
+          itemCount: clients.length,)
         )
         
       ]
