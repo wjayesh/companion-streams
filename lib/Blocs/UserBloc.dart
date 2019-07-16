@@ -4,7 +4,7 @@ import 'dart:async';
 
 class UserBloc extends BlocBase{
 
-  StreamController<Message> notDone1Controller = StreamController<Message>();
+  StreamController<Message> notDone1Controller = StreamController<Message>.broadcast();
   Stream<Message> get outNotDone1 => notDone1Controller.stream;
   StreamSink<Message> get sinkNotDone1 => notDone1Controller.sink;
 

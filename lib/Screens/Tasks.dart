@@ -29,15 +29,16 @@ class TasksState extends State<Tasks>{
     setState(() { 
     });
   }
-
+UserBloc bloc;
 @override 
 void initState(){
-  controller = AnimationController(
-      duration: const Duration(milliseconds: 1000));
-  animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
+  // controller = AnimationController(
+  //     duration: const Duration(milliseconds: 1000), vsync: );
+  //animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
   getClient();
   super.initState();
   updateTime();
+  bloc = BlocProvider.of<UserBloc>(context);
 }
 
   bool isDepressed(){
@@ -69,7 +70,7 @@ void initState(){
 
   @override
   Widget build(BuildContext context){
-    final UserBloc bloc = BlocProvider.of<UserBloc>(context);
+    
     return Material(
     
       
@@ -80,13 +81,12 @@ void initState(){
         (!client.answered && !timeUp) ? askQuestion() : Container(),
         StreamBuilder<Message>(
           stream: bloc.outNotDone1,
+          initialData: Message(true, client.id),
           builder: (BuildContext context, AsyncSnapshot<Message> snapshot){
             return Flexible(child:ListView(
             children: <Widget>[
-            (isDepressed() && (snapshot.data.userId == client.id)?snapshot.data.value: false)? 
-            FadeTransition(opacity: animation,
-              
-              child :
+            (isDepressed() && (snapshot.data?.userId == client.id)?snapshot.data?.value: false)? 
+            
             GestureDetector(
               onDoubleTap: () {
                 client.notDone1=false;
@@ -102,7 +102,7 @@ void initState(){
                         style: TextStyle(fontWeight:FontWeight.bold ),),
               )
 
-            ))
+            )
             :Container()
           ]
           )
@@ -154,10 +154,8 @@ void initState(){
           ],
         ),
         
-      )
-      ],
-      )
       );
+      
       
   }
 

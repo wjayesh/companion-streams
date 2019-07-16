@@ -1,3 +1,5 @@
+import 'package:companion/BlocProvider.dart';
+import 'package:companion/Blocs/UserBloc.dart';
 import 'package:flutter/material.dart';
 import 'CustomTabBar.dart';
 import "Screens/Tasks.dart";
@@ -20,6 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
+     
       navigatorObservers: [VillainTransitionObserver()],
       routes: 
       {
@@ -76,7 +79,10 @@ Map<String,Widget> pages;
 @override
 void initState(){
   pages=<String,Widget>{
-    "Tasks" : Tasks(id),
+    "Tasks" : BlocProvider(
+      bloc: UserBloc(),
+      child: Tasks(id),
+    ),
     "Dashboard" : Dashboard(id:id),   
   };
   super.initState();
@@ -86,7 +92,8 @@ void initState(){
   @override
   Widget build(BuildContext context) {
     
-    return Scaffold(
+    return 
+      Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
@@ -137,7 +144,6 @@ void initState(){
         children: pages.values.toList(),
         )
       
-    );
-      
+    )    ; 
   }
 }
